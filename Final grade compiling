@@ -1,0 +1,22 @@
+### A function that calculates the course total, compensating for missed midterms and produces a letter grade using the 9-point letter system
+
+## Student information occupies only the first 4 columns of the dataset
+## Three course tests are listed consecutively followed by an undefined amount of additional assignments
+## Input midterm grades and total lab percentage
+## All grades must be inputted as a percentage of the course
+
+grade.compile <- function(data, t1.gr, t2.gr, t3.gr, lab.gr)
+{
+grades <- data[,1:4]
+total <- sum(t1.gr,t2.gr,t3.gr, lab.gr)
+start <- length(names(data))-4
+end <- length(names(data))
+## adjust with labs
+for(i in 1:length(grades[,1]))
+{
+grades[i,"Course Total"] <- (ifelse(data[i,5]==0,sum(data[i,start:end])/(total-t1.gr),ifelse(data[i,6]==0,sum(data[i,start:end])/(total-t2.gr),ifelse(data[i,7]==0,sum(data[i,start:end])/(total-t3.gr),sum(data[i,start:end])/100))))*100
+}
+## Nested if for letter grades
+grades[,"Letter Grade"] <- ifelse(grades[,5]<40,"F",ifelse(grades[,5]<50,"E",ifelse(grades[,5]<55,"D",ifelse(grades[,5]<60,"D+",ifelse(grades[,5]<65,"C",ifelse(grades[,5]<70,"C+",ifelse(grades[,5]<75,"B",ifelse(grades[,5]<80,"B+",ifelse(grades[,5]<90,"A","A+")))))))))
+return(grades)
+}
