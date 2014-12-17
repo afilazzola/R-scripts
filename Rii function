@@ -1,0 +1,21 @@
+## function for rii
+#Armas, C., Ordiales, R., & Pugnaire, F. I. (2004). Measuring plant interactions: a new comparative indedata. Ecology, 85(10), 2682-2686.
+
+# data = dataframe
+# x = factors to keep
+# y = response variables for rii function to operate on
+# one column must be labeled Microsite with Shrub, Open as variables. 
+
+rii <- function(data, x, y)
+{
+# Parse out shrub and open
+s1 <- subset(data, Microsite == "Shrub", select=y)
+o1 <- subset(data, Microsite == "Open", select=y)
+# Rii formula
+return1 <- (s1 - o1) / (s1+o1)
+# attach factors
+x1 <- x[seq(1, nrow(x), by = 2),]
+return2 <- cbind(data1[x], return1)
+return2[is.na(return2)] <- 0
+print(return2)
+}
