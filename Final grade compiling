@@ -9,7 +9,7 @@ grade.compile <- function(data, t1.gr, t2.gr, t3.gr, lab.gr)
 {
 grades <- data[,1:4]
 total <- sum(t1.gr,t2.gr,t3.gr, lab.gr)
-start <- length(names(data))-4
+start <- 5
 end <- length(names(data))
 ## adjust with labs
 for(i in 1:length(grades[,1]))
