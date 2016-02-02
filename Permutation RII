@@ -1,0 +1,35 @@
+## Description
+# RII is an effect estimate proposed by Armas et al 2004 to compare a plants performance with neighbours and without.
+# It was generated from a similar index that compares a subjects success between control and treatment plots (t-c)/(t+c)
+# Heterogeneity stats are typically available for comparisons, but for simpler, within study examples, permutations tests can be used with parametric statistics. 
+# Michalet et al. 2014 conducted these analyses in a 2014 Functional Ecology paper between cushion and open microsites. 
+
+##Citations
+#Michalet, R., Schöb, C., Lortie, C. J., Brooker, R. W., & Callaway, R. M. (2014). Partitioning net interactions among plants along altitudinal gradients to study community responses to climate change. Functional Ecology, 28(1), 75-86.
+#Armas, C., Ordiales, R., & Pugnaire, F. I. (2004). Measuring plant interactions: a new comparative index. Ecology, 85(10), 2682-2686.
+
+# Load RII script. Site with "Shrub" and "Open" must be named Microsite. 
+# x = dataframe
+# j = columns to include
+# var = variables to conduct rii on
+
+rii <- function(x, j, var)
+{
+s1 <- x[x$Microsite == "Shrub",]
+o1 <- x[x$Microsite == "Open",]
+return1 <- (s1 - o1) / (s1+o1)
+x1 <- x[seq(1, nrow(x), by = 2),]
+return2 <- cbind(x1[j], return1[var])
+return2[is.na(return2)] <- 0
+print(return2)
+}
+
+## Randomly resample dataset 999 times. 
+for(i in 1:999)
+{
+n = i+1
+data2 <- data[sample(nrow(data), 540), ]
+data3 <- rbind(data3,data2)
+}
+
+str(data3)
