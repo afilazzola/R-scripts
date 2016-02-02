@@ -25,11 +25,16 @@ print(return2)
 }
 
 ## Randomly resample dataset 999 times. 
+# Where data = dataframe
 for(i in 1:999)
 {
 n = i+1
 data2 <- data[sample(nrow(data), 540), ]
 data3 <- rbind(data3,data2)
 }
-
+#View data
 str(data3)
+
+# Conduct RII on resampled data set. 
+
+rii.dat <- rii(data3, j, var)
